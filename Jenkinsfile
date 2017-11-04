@@ -9,7 +9,8 @@ pipeline {
         }
         stage('Running UTs') {
             steps {
-                sh './self_learn_repo'
+                sh './self_learn_repo -r junit > ut_results.xml'
+		junit 'ut_results.xml'
             }
         }
     }
