@@ -4,8 +4,6 @@ pipeline {
         stage('Build UTs') { 
             steps {
                 echo 'Building Unit Tests...'
-                sh 'cmake .'
-		sh 'make '
             }
         }
         stage('Running UTs') {
