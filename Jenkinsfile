@@ -4,7 +4,8 @@ pipeline {
         stage('Build UTs') { 
             steps {
                 echo 'Building Unit Tests...'
-		sh 'clang++ --version'
+		sh 'cmake .'
+		sh 'make'
             }
         }
         stage('Running UTs') {
