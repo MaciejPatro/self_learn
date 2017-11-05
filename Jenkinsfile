@@ -3,11 +3,11 @@ pipeline {
     stages {
         stage('Build UTs') { 
             steps {
-                sh 'mkdir ../build'
-                sh 'cd ../build'
+                sh 'mkdir build'
+                sh 'cd build'
                 sh 'mkdir uts'
                 sh 'cd uts'
-		        sh 'cmake -D CMAKE_CXX_COMPILER=clang++ ../../../self_learn_repo'
+		        sh 'cmake -D CMAKE_CXX_COMPILER=clang++ ../..'
 		        sh 'make -j 4'
             }
         }
