@@ -7,7 +7,7 @@ pipeline {
                 sh 'cd ../build/uts && make -j4'
             }
         }
-        stage('Rung UTs') {
+        stage('Run UTs') {
             steps {
                 sh '../build/uts/exercises/ut/exercisesTests -r junit > ut_results.xml'
             }
