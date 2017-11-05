@@ -7,12 +7,12 @@ pipeline {
                 sh 'cd ../build/uts && make -j4'
             }
         }
-        stage('Running UTs') {
+        stage('Rung UTs') {
             steps {
                 sh '../build/uts/exercises/ut/exercisesTests -r junit > ut_results.xml'
             }
         }
-        stage('Sanitizers') {
+        stage('Build&Run Sanitizers') {
             steps {
                 parallel(
                     Address: {
@@ -33,7 +33,7 @@ pipeline {
                 )
 		    }
         }
-        stage('Build Product') {
+        stage('Deploy') {
             steps {
                 sh 'scripts/prepare_build.sh deploy testing=OFF'
                 sh 'cd ../build/deploy && make -j4'
