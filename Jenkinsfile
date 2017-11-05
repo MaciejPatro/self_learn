@@ -7,7 +7,7 @@ pipeline {
                 sh 'cd ../build'
                 sh 'mkdir uts'
                 sh 'cd uts'
-		        sh 'cmake -D CMAKE_CXX_COMPILER=clang++ ../../self_learn_repo'
+		        sh 'cmake -D CMAKE_CXX_COMPILER=clang++ ../../../self_learn_repo'
 		        sh 'make -j 4'
             }
         }
