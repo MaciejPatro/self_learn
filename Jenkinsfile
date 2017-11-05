@@ -3,46 +3,41 @@ pipeline {
     stages {
         stage('Build UTs') { 
             steps {
-            
-                sh 'mkdir build'
-                sh 'cd build'
-                sh 'mkdir uts'
-                sh 'cd uts'
-		        sh 'cmake -D CMAKE_CXX_COMPILER=clang++ ../..'
-		        sh 'make -j 4'
+                sh 'scripts/prepare_build.sh uts testing=ON'
+                sh 'cd ../build/uts && make -j4'
             }
         }
         stage('Running UTs') {
             steps {
-                sh 'exercises/ut/exercisesTests -r junit > ut_results.xml'
+                sh '../build/uts/exercises/ut/exercisesTests -r junit > ut_results.xml'
             }
         }
         stage('Sanitizers') {
             steps {
                 parallel(
                     Address: {
-                        sh 'cmake -D CMAKE_CXX_COMPILER=clang++ -D asan=ON .'
-                  	    sh 'make'
-                        sh 'exercises/ut/exercisesTests'
+                        sh 'scripts/prepare_build.sh asan asan=ON'
+                  	    sh 'cd ../build/asan && make -j2'
+                        sh '../build/asan/exercises/ut/exercisesTests'
                     },
                     Memory: {
-                        sh 'cmake -D CMAKE_CXX_COMPILER=clang++ -D msan=ON .'
-                  	    sh 'make'
-                        sh 'exercises/ut/exercisesTests'
+                        sh 'scripts/prepare_build.sh msan msan=ON'
+                  	    sh 'cd ../build/msan && make -j2'
+                        sh '../build/msan/exercises/ut/exercisesTests'
                     }
                 )
 		    }
         }
         stage('Build Product') {
             steps {
-                sh 'cmake -D testing=OFF -D CMAKE_CXX_COMPILER=clang++ .'
-                sh 'make -j 4'
+                sh 'scripts/prepare_build.sh deploy testing=OFF'
+                sh 'cd ../build/deploy && make -j4'
             }
         }
     }
     post {
         always {
-	    junit 'ut_results.xml'
-	}
+	        junit 'ut_results.xml'
+	    }
     }
 }
