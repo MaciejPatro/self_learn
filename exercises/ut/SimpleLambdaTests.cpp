@@ -14,11 +14,13 @@ TEST_CASE("Having fun with lambdas", "[lambdas]")
 
     REQUIRE(always_return_true());
   }
-  SECTION("Lambda checking whether LHS > RHS")
-  {
-    auto greater_than_lambda = [](auto lhs, auto rhs) { return lhs > rhs; };
 
-    REQUIRE(greater_than_lambda(5, 4));
-    REQUIRE(greater_than_lambda(5.23, 4.3));
+  SECTION("Lambda checking whether lhs > rhs")
+  {
+    auto is_greater_than = [](auto lhs, auto rhs) { return lhs > rhs; };
+
+    REQUIRE(is_greater_than(5, 4));
+    REQUIRE(is_greater_than(5.23, 4.3));
+    REQUIRE_FALSE(is_greater_than(4, 4));
   }
 }
