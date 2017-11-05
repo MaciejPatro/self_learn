@@ -8,3 +8,5 @@ self_learn_repo
 *.cbp
 */Makefile
 Makefile
+*.a
+Testing/
