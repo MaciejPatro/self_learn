@@ -3,7 +3,11 @@ pipeline {
     stages {
         stage('Build UTs') { 
             steps {
-		        sh 'cmake -D CMAKE_CXX_COMPILER=clang++ .'
+                sh 'mkdir ../build'
+                sh 'cd ../build'
+                sh 'mkdir uts'
+                sh 'cd uts'
+		        sh 'cmake -D CMAKE_CXX_COMPILER=clang++ ../../self_learn_repo'
 		        sh 'make -j 4'
             }
         }
@@ -12,16 +16,18 @@ pipeline {
                 sh 'exercises/ut/exercisesTests -r junit > ut_results.xml'
             }
         }
-        stage('Sanity Check') {
+        stage('Sanitizers') {
             steps {
                 parallel(
                     Address: {
                         sh 'cmake -D CMAKE_CXX_COMPILER=clang++ -D asan=ON .'
                   	    sh 'make'
-                        sh 'exercises/ut/exercisesTests -r junit > ut_results.xml'
+                        sh 'exercises/ut/exercisesTests'
                     },
-                    b: {
-                        echo "This is branch b"
+                    Memory: {
+                        sh 'cmake -D CMAKE_CXX_COMPILER=clang++ -D msan=ON .'
+                  	    sh 'make'
+                        sh 'exercises/ut/exercisesTests'
                     }
                 )
 		    }
