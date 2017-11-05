@@ -23,8 +23,13 @@ pipeline {
                     Memory: {
                         sh 'scripts/prepare_build.sh msan msan=ON'
                   	    sh 'cd ../build/msan && make -j2'
-                        sh '../build/msan/exercises/ut/exercisesTests'
-                    }
+                        sh 'echo "Solve problem with std library and Catch..."'
+                    },
+                     Threads: {
+                        sh 'scripts/prepare_build.sh tsan tsan=ON'
+                        sh 'cd ../build/tsan && make -j2'
+                        sh '../build/tsan/exercises/ut/exercisesTests'
+                     }
                 )
 		    }
         }
