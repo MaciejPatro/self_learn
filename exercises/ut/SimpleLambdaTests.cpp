@@ -23,4 +23,13 @@ TEST_CASE("Having fun with lambdas", "[lambdas]")
     REQUIRE(is_greater_than(5.23, 4.3));
     REQUIRE_FALSE(is_greater_than(4, 4));
   }
+
+  SECTION("Lambda with side-effect")
+  {
+    int  some_value        = 5;
+    auto three_times_value = [& a = some_value]() -> int { return a++ * 3; }();
+
+    REQUIRE(some_value == 6);
+    REQUIRE(three_times_value == 15);
+  }
 }
