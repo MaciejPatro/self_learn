@@ -6,6 +6,7 @@
 
 #include <catch.hpp>
 #include <complex>
+#include <iostream>
 
 TEST_CASE("Having fun with lambdas", "[lambdas]")
 {
@@ -43,9 +44,9 @@ TEST_CASE("Having fun with lambdas", "[lambdas]")
     REQUIRE(4 == get_num_of_arguments(1, 'a', 1.32, std::complex{1, 1}));
   }
 
-  SECTION("Advanced variadic template - side-effect should contain sum of provided element")
+  SECTION("Lambda by default should be constexpr")
   {
-    int i = 0;
-    REQUIRE(10 == i);
+    auto is_greater_than_10 = [](auto val) { return val > 10; };
+    static_assert(is_greater_than_10(24));
   }
 }
