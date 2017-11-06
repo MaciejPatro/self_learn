@@ -5,6 +5,7 @@
  ***********************************************/
 
 #include <catch.hpp>
+#include <complex>
 
 TEST_CASE("Having fun with lambdas", "[lambdas]")
 {
@@ -29,7 +30,15 @@ TEST_CASE("Having fun with lambdas", "[lambdas]")
     int  some_value        = 5;
     auto three_times_value = [& a = some_value]() -> int { return a++ * 3; }();
 
-    REQUIRE(some_value == 6);
-    REQUIRE(three_times_value == 15);
+    REQUIRE(6 == some_value);
+    REQUIRE(15 == three_times_value);
+  }
+
+  SECTION("Simple variadic lambda - return number of provided elements")
+  {
+    auto get_num_of_arguments = [](auto... z) { return sizeof...(z); };
+    REQUIRE(0 == get_num_of_arguments());
+    REQUIRE(7 == get_num_of_arguments(1, 2, 3, 4, 5, 6, 7));
+    REQUIRE(4 == get_num_of_arguments(1, 'a', 1.32, std::complex{1, 1}));
   }
 }
