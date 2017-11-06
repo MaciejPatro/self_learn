@@ -1,9 +1,5 @@
-/***********************************************
- *
- * Created by mpatro on 11/5/17.
- *
- ***********************************************/
 
+#include <algorithm>
 #include <catch.hpp>
 #include <complex>
 #include <iostream>
@@ -29,10 +25,10 @@ TEST_CASE("Having fun with lambdas", "[lambdas]")
   SECTION("Lambda with side-effect")
   {
     int  some_value        = 5;
-    auto three_times_value = [& a = some_value]() -> int { return a++ * 3; }();
+    auto three_times_value = [& a = some_value]() -> int { a++; return a * 3; }();
 
     REQUIRE(6 == some_value);
-    REQUIRE(15 == three_times_value);
+    REQUIRE(18 == three_times_value);
   }
 
   SECTION("Simple variadic lambda - return number of provided elements")
@@ -48,5 +44,17 @@ TEST_CASE("Having fun with lambdas", "[lambdas]")
   {
     auto is_greater_than_10 = [](auto val) { return val > 10; };
     static_assert(is_greater_than_10(24));
+  }
+
+  SECTION("Lambda as functor argument for standard algorithm")
+  {
+    auto is_even = [](auto val) -> bool { return !(val & 1); };
+
+    std::vector<int> second_is_even{1, 2, 3, 4, 5};
+    const auto&      second_iter = second_is_even.begin() + 1;
+    REQUIRE(second_iter == std::find_if(second_is_even.begin(), second_is_even.end(), is_even));
+
+    std::vector<int> only_odd{1, 3, 5, 7, 9, 11};
+    REQUIRE(only_odd.end() == std::find_if(only_odd.begin(), only_odd.end(), is_even));
   }
 }
