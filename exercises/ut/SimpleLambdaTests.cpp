@@ -37,8 +37,15 @@ TEST_CASE("Having fun with lambdas", "[lambdas]")
   SECTION("Simple variadic lambda - return number of provided elements")
   {
     auto get_num_of_arguments = [](auto... z) { return sizeof...(z); };
+
     REQUIRE(0 == get_num_of_arguments());
     REQUIRE(7 == get_num_of_arguments(1, 2, 3, 4, 5, 6, 7));
     REQUIRE(4 == get_num_of_arguments(1, 'a', 1.32, std::complex{1, 1}));
+  }
+
+  SECTION("Advanced variadic template - side-effect should contain sum of provided element")
+  {
+    int i = 0;
+    REQUIRE(10 == i);
   }
 }
