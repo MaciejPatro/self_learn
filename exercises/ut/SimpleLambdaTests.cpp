@@ -1,4 +1,3 @@
-
 #include <algorithm>
 #include <catch.hpp>
 #include <complex>
