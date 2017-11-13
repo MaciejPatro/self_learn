@@ -6,7 +6,7 @@ option(asan "asan" OFF)
 option(msan "msan" OFF)
 option(coverage "coverage" OFF)
 
-set(CMAKE_CXX_FLAGS "-std=c++17 -Weverything -Wno-c++98-compat -Wno-padded")
+set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wpedantic -Wno-c++98-compat")
 
 if(asan)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
