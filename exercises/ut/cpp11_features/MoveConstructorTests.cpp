@@ -26,42 +26,42 @@
 
 namespace
 {
-struct A
+struct BaseWithMoveConstructor
 {
   std::string s;
-  A()
+  BaseWithMoveConstructor()
       : s("test")
   {
   }
-  A(const A& o) { s = "copy"; }
-  A(A&& o)
+  BaseWithMoveConstructor(const BaseWithMoveConstructor& o) { s = "copy"; }
+  BaseWithMoveConstructor(BaseWithMoveConstructor&& o)
   noexcept
       : s(std::move(o.s))
   {
   }
 };
-A f(A a) { return a; }
+BaseWithMoveConstructor f(BaseWithMoveConstructor a) { return a; }
 
-struct B : A
+struct InheritedImplicitMoveConstructor : BaseWithMoveConstructor
 {
   std::string s2;
   int         n;
-  // implicit move constructor B::(B&&)
-  // calls A's move constructor
+  // implicit move constructor InheritedImplicitMoveConstructor::(InheritedImplicitMoveConstructor&&)
+  // calls BaseWithMoveConstructor's move constructor
   // calls s2's move constructor
   // and makes a bitwise copy of n
 };
 
-struct C : B
+struct ExplicitDestructorPreventingMoves : InheritedImplicitMoveConstructor
 {
-  ~C() {} // destructor prevents implicit move constructor C::(C&&)
+  ~ExplicitDestructorPreventingMoves() {} // destructor prevents implicit move constructor C::(C&&)
 };
 
-struct D : B
+struct ExplicitDefaultMoveConstructor : InheritedImplicitMoveConstructor
 {
-  D() {}
-  ~D() {}           // destructor would prevent implicit move constructor D::(D&&)
-  D(D&&) = default; // forces a move constructor anyway
+  ExplicitDefaultMoveConstructor() {}
+  ~ExplicitDefaultMoveConstructor() {}           // destructor would prevent implicit move constructor D::(D&&)
+  ExplicitDefaultMoveConstructor(ExplicitDefaultMoveConstructor&&) = default; // forces a move constructor anyway
 };
 
 } // namespace anonymous
@@ -70,33 +70,33 @@ TEST_CASE("Move constructors", "[cpp11][move]")
 {
   SECTION("Move from temporary rvalue and from xvalue")
   {
-    A a1 = f(A()); // move-constructs from rvalue temporary
+    BaseWithMoveConstructor a1 = f(BaseWithMoveConstructor()); // move-constructs from rvalue temporary
     REQUIRE("test" == a1.s);
-    A a2 = std::move(a1); // move-constructs from xvalue
+    BaseWithMoveConstructor a2 = std::move(a1); // move-constructs from xvalue
     REQUIRE("test" == a2.s);
     REQUIRE("" == a1.s);
   }
 
   SECTION("Implicit move constructor inherited")
   {
-    B b1;
+    InheritedImplicitMoveConstructor b1;
     REQUIRE("test" == b1.s);
-    B b2 = std::move(b1); // calls implicit move constructor
+    InheritedImplicitMoveConstructor b2 = std::move(b1); // calls implicit move constructor
     REQUIRE("" == b1.s);
   }
 
   SECTION("Explicit destructor prevents implicit move constructor")
   {
-    C c1;
-    C c2 = std::move(c1); // calls copy constructor
+    ExplicitDestructorPreventingMoves c1;
+    ExplicitDestructorPreventingMoves c2 = std::move(c1); // calls copy constructor
     REQUIRE("copy" == c2.s);
     REQUIRE("test" == c1.s);
   }
 
   SECTION("Explicit destructor with forced default move constructor")
   {
-    D d1;
-    D d2 = std::move(d1);
+    ExplicitDefaultMoveConstructor d1;
+    ExplicitDefaultMoveConstructor d2 = std::move(d1);
     REQUIRE("" == d1.s);
     REQUIRE("test" == d2.s);
   }
