@@ -8,6 +8,9 @@
 #include <iostream>
 
 /*
+
+ http://thbecker.net/articles/rvalue_references/section_01.html
+
     Move semantics is mostly about performance optimization: the ability to move an object without
  the expensive overhead of copying. The difference between a copy and a move is that a copy leaves
  the source unchanged, and a move will leave the source either unchanged or radically different --
