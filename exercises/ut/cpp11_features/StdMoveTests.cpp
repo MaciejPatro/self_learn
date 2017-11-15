@@ -66,7 +66,7 @@ struct D : B
 
 } // namespace anonymous
 
-TEST_CASE("Move semantics", "[cpp11][move]")
+TEST_CASE("Move constructors", "[cpp11][move]")
 {
   SECTION("Move from temporary rvalue and from xvalue")
   {
