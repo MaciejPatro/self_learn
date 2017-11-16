@@ -22,9 +22,9 @@ enum class Output
   ByRvalue
 };
 
-//Output fullyOverloadedFunction(int&) { return Output::ByLvalue; }
-//Output fullyOverloadedFunction(const int&) { return Output::ByConstLvalue; }
-//Output fullyOverloadedFunction(int&&) { return Output::ByRvalue; }
+Output fullyOverloadedFunction(int&) { return Output::ByLvalue; }
+Output fullyOverloadedFunction(const int&) { return Output::ByConstLvalue; }
+Output fullyOverloadedFunction(int&&) { return Output::ByRvalue; }
 
 Output onlyLvalueOverloads(int&) { return Output::ByLvalue; }
 Output onlyLvalueOverloads(const int&) { return Output::ByConstLvalue; }
@@ -56,6 +56,28 @@ TEST_CASE("Rvalue references", "[cpp11][move]")
     {
       int value = 7;
       REQUIRE(Output::ByConstLvalue == onlyLvalueOverloads(std::move(value)));
+    }
+  }
+
+  SECTION("Overloaded function with rvalue overload existing")
+  {
+    SECTION("Rvalue instead of const lvalue")
+    {
+      REQUIRE(Output::ByRvalue == fullyOverloadedFunction(5));
+    }
+
+    SECTION("Move required rvalue overload")
+    {
+      int value = 5;
+      REQUIRE(Output::ByRvalue == fullyOverloadedFunction(std::move(value)));
+    }
+
+    SECTION("Lvalues to be used correctly")
+    {
+      int       value      = 3;
+      const int constValue = 5;
+      REQUIRE(Output::ByLvalue == fullyOverloadedFunction(value));
+      REQUIRE(Output::ByConstLvalue == fullyOverloadedFunction(constValue));
     }
   }
 }
