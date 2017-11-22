@@ -27,23 +27,21 @@
  are designed to hold a pointer to a unique object, from one scope to another.
  */
 
-namespace
-{
+namespace {
 struct BaseWithMoveConstructor
 {
   std::string s;
-  BaseWithMoveConstructor()
-      : s("test")
+  BaseWithMoveConstructor() : s("test") {}
+  BaseWithMoveConstructor(const BaseWithMoveConstructor& o)
   {
+    s = "copy";
   }
-  BaseWithMoveConstructor(const BaseWithMoveConstructor& o) { s = "copy"; }
-  BaseWithMoveConstructor(BaseWithMoveConstructor&& o)
-  noexcept
-      : s(std::move(o.s))
-  {
-  }
+  BaseWithMoveConstructor(BaseWithMoveConstructor&& o) noexcept : s(std::move(o.s)) {}
 };
-BaseWithMoveConstructor f(BaseWithMoveConstructor a) { return a; }
+BaseWithMoveConstructor f(BaseWithMoveConstructor a)
+{
+  return a;
+}
 
 struct InheritedImplicitMoveConstructor : BaseWithMoveConstructor
 {
@@ -63,11 +61,11 @@ struct ExplicitDestructorPreventingMoves : InheritedImplicitMoveConstructor
 struct ExplicitDefaultMoveConstructor : InheritedImplicitMoveConstructor
 {
   ExplicitDefaultMoveConstructor() {}
-  ~ExplicitDefaultMoveConstructor() {}           // destructor would prevent implicit move constructor D::(D&&)
+  ~ExplicitDefaultMoveConstructor() {} // destructor would prevent implicit move constructor D::(D&&)
   ExplicitDefaultMoveConstructor(ExplicitDefaultMoveConstructor&&) = default; // forces a move constructor anyway
 };
 
-} // namespace anonymous
+} // namespace
 
 TEST_CASE("Move constructors", "[cpp11][move]")
 {

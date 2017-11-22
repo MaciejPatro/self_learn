@@ -13,8 +13,7 @@
  way.
 */
 
-namespace
-{
+namespace {
 enum class Output
 {
   ByLvalue,
@@ -22,14 +21,29 @@ enum class Output
   ByRvalue
 };
 
-Output fullyOverloadedFunction(int&) { return Output::ByLvalue; }
-Output fullyOverloadedFunction(const int&) { return Output::ByConstLvalue; }
-Output fullyOverloadedFunction(int&&) { return Output::ByRvalue; }
+Output fullyOverloadedFunction(int&)
+{
+  return Output::ByLvalue;
+}
+Output fullyOverloadedFunction(const int&)
+{
+  return Output::ByConstLvalue;
+}
+Output fullyOverloadedFunction(int&&)
+{
+  return Output::ByRvalue;
+}
 
-Output onlyLvalueOverloads(int&) { return Output::ByLvalue; }
-Output onlyLvalueOverloads(const int&) { return Output::ByConstLvalue; }
+Output onlyLvalueOverloads(int&)
+{
+  return Output::ByLvalue;
+}
+Output onlyLvalueOverloads(const int&)
+{
+  return Output::ByConstLvalue;
+}
 
-} // namespace anonymous
+} // namespace
 
 TEST_CASE("Rvalue references", "[cpp11][move]")
 {

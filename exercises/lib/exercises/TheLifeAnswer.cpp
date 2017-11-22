@@ -7,5 +7,8 @@
 #include "TheLifeAnswer.h"
 
 namespace exercises {
-int TheLifeAnswer::answer() const noexcept { return 42; }
+int TheLifeAnswer::answer() const noexcept
+{
+  return 42;
+}
 } // namespace exercises

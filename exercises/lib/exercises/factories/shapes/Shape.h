@@ -8,29 +8,34 @@
 
 #include <string>
 
-namespace exercises
-{
+namespace exercises {
 
 class ShapeInterface
 {
-   public:
+public:
   virtual ~ShapeInterface() {}
   virtual std::string getName() = 0;
 
-   protected:
+protected:
   ShapeInterface() = default;
 };
 
 class Circle : public ShapeInterface
 {
-   public:
-  std::string getName() { return "Circle"; }
+public:
+  std::string getName()
+  {
+    return "Circle";
+  }
 };
 
 class Rectangle : public ShapeInterface
 {
-   public:
-  std::string getName() { return "Rectangle"; }
+public:
+  std::string getName()
+  {
+    return "Rectangle";
+  }
 };
 
 } // namespace exercises
