@@ -30,6 +30,13 @@ T sum_of_elements_of_the_same_type(T first, Args... rest)
   return first + sum_of_elements_of_the_same_type(rest...);
 };
 
+template <typename... Args>
+std::vector<int> get_vector_of_arguments_incremented(Args... args)
+{
+  std::vector<int> incremented = { ++args... };
+  return incremented;
+}
+
 } // namespace
 
 TEST_CASE("Basics of variadic templates", "[cpp11][variadic][template]")
@@ -55,5 +62,15 @@ TEST_CASE("Basics of variadic templates", "[cpp11][variadic][template]")
   {
     // 3.5 downcast to 3 due to conversion to int!
     REQUIRE(49.5 == sum_of_elements_of_the_same_type(23.5, 23, 3.5));
+  }
+
+  SECTION("Variadic template incrementation of elements + initialization list usage")
+  {
+    using Catch::Matchers::Equals;
+
+    const std::vector<int> expected_result{ 1, 2, 3, 4 };
+    const auto             result = get_vector_of_arguments_incremented(0, 1, 2, 3);
+
+    REQUIRE_THAT(result, Equals(expected_result));
   }
 }
