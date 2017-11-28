@@ -61,7 +61,7 @@ TEST_CASE("Basics of variadic templates", "[cpp11][variadic][template]")
   SECTION("Sum of different types fails!")
   {
     // 3.5 downcast to 3 due to conversion to int!
-    REQUIRE(49.5 == sum_of_elements_of_the_same_type(23.5, 23, 3.5));
+    REQUIRE(50 != sum_of_elements_of_the_same_type(23.5, 23, 3.5));
   }
 
   SECTION("Variadic template incrementation of elements + initialization list usage")
