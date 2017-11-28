@@ -37,6 +37,18 @@ std::vector<int> get_vector_of_arguments_incremented(Args... args)
   return incremented;
 }
 
+template <typename... Args>
+std::string get_string_depending_on_generic_or_specialization(Args...)
+{
+  return "generic";
+}
+
+template <>
+std::string get_string_depending_on_generic_or_specialization<int, int>(int, int)
+{
+  return "specialization";
+};
+
 } // namespace
 
 TEST_CASE("Basics of variadic templates", "[cpp11][variadic][template]")
@@ -72,5 +84,14 @@ TEST_CASE("Basics of variadic templates", "[cpp11][variadic][template]")
     const auto             result = get_vector_of_arguments_incremented(0, 1, 2, 3);
 
     REQUIRE_THAT(result, Equals(expected_result));
+  }
+
+  SECTION("Variadic template specialization example")
+  {
+    using Catch::Matchers::Equals;
+    REQUIRE_THAT(get_string_depending_on_generic_or_specialization(1, 2, 3, "string"), Equals("generic"));
+    REQUIRE_THAT(get_string_depending_on_generic_or_specialization(1, 2, 3), Equals("generic"));
+
+    REQUIRE_THAT(get_string_depending_on_generic_or_specialization(22, 75), Equals("specialization"));
   }
 }
