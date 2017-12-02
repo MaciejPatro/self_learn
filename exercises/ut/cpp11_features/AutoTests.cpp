@@ -52,4 +52,11 @@ TEST_CASE("[CPP11] Auto and decltype", "[cpp11][auto][decltype]")
     auto sum_of_different_types = add(1, 2.1);
     REQUIRE(std::is_same<decltype(sum_of_different_types), double>::value); // upcast to double
   }
+
+  SECTION("Weird decltype usage similar to auto")
+  {
+    int x         = 5;
+    decltype(x) y = 7;
+    REQUIRE(std::is_same<decltype(y), int>::value);
+  }
 }
