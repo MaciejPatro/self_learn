@@ -20,6 +20,15 @@ int sum(const std::initializer_list<int>& list)
     total += e;
   return total;
 }
+
+class PrivateCopyConstructorObject
+{
+public:
+  PrivateCopyConstructorObject(const std::initializer_list<int>&) {}
+private:
+  PrivateCopyConstructorObject(const PrivateCopyConstructorObject&) = delete;
+  PrivateCopyConstructorObject& operator=(const PrivateCopyConstructorObject&) = delete;
+};
 } // namespace
 
 TEST_CASE("[CPP11]Initializer lists - how do they actually work", "[cpp11][initializer]")
@@ -30,5 +39,11 @@ TEST_CASE("[CPP11]Initializer lists - how do they actually work", "[cpp11][initi
     REQUIRE(6 == sum(list));
     REQUIRE(0 == sum({}));
     REQUIRE(5 == sum({ 1, 1, 1, 1, 1 }));
+  }
+
+  SECTION("Object without copy assignment/constructor usage")
+  {
+    PrivateCopyConstructorObject obj{ 1 };
+    PrivateCopyConstructorObject objNotCompiling = { 1 };
   }
 }
