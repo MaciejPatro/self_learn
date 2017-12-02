@@ -3,7 +3,7 @@
 #include <complex>
 #include <iostream>
 
-TEST_CASE("Having fun with lambdas", "[lambdas]")
+TEST_CASE("[CPP11]Having fun with lambdas", "[lambdas]")
 {
   SECTION("Always return true lambda")
   {

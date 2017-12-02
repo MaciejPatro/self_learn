@@ -51,7 +51,7 @@ std::string get_string_depending_on_generic_or_specialization<int, int>(int, int
 
 } // namespace
 
-TEST_CASE("Basics of variadic templates", "[cpp11][variadic][template]")
+TEST_CASE("[CPP11]Basics of variadic templates", "[cpp11][variadic][template]")
 {
   SECTION("Check number of elements at compile-time")
   {

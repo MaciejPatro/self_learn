@@ -45,7 +45,7 @@ Output onlyLvalueOverloads(const int&)
 
 } // namespace
 
-TEST_CASE("Rvalue references", "[cpp11][move]")
+TEST_CASE("[CPP11]Rvalue references", "[cpp11][move]")
 {
   SECTION("Overloaded functions with Only lvalue overloads")
   {

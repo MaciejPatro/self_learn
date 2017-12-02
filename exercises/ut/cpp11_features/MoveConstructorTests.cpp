@@ -67,7 +67,7 @@ struct ExplicitDefaultMoveConstructor : InheritedImplicitMoveConstructor
 
 } // namespace
 
-TEST_CASE("Move constructors", "[cpp11][move]")
+TEST_CASE("[CPP11]Move constructors", "[cpp11][move]")
 {
   SECTION("Move from temporary rvalue and from xvalue")
   {

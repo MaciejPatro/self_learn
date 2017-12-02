@@ -17,16 +17,12 @@ int sum(const std::initializer_list<int>& list)
 {
   int total = 0;
   for(auto& e : list)
-  {
     total += e;
-  }
-
   return total;
 }
-
 } // namespace
 
-TEST_CASE("Initializer lists - how do they actually work", "[cpp11][initializer]")
+TEST_CASE("[CPP11]Initializer lists - how do they actually work", "[cpp11][initializer]")
 {
   SECTION("Function with initializer_list as parameter")
   {
