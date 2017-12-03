@@ -39,6 +39,7 @@ TEST_CASE("[CPP11] Aliases using and how it works", "[cpp11][alias]")
   SECTION("Template alias for vector")
   {
     MyVec<int> vec{ 1, 2, 4 };
+    REQUIRE(std::is_same<decltype(vec), std::vector<int> >::value);
   }
 
   SECTION("Pointer to a function")
