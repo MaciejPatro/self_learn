@@ -6,7 +6,12 @@ add_executable(exercisesTests
         cpp11_features/SimpleLambdaTests.cpp
         cpp11_features/MoveConstructorTests.cpp
         cpp11_features/RValueReferencesTests.cpp
-        cpp11_features/VariadicTemplatesTests.cpp cpp11_features/InitializerListsTests.cpp cpp11_features/AutoTests.cpp cpp11_features/AliasesTests.cpp cpp11_features/NullPtrTests.cpp)
+        cpp11_features/VariadicTemplatesTests.cpp
+        cpp11_features/InitializerListsTests.cpp
+        cpp11_features/AutoTests.cpp
+        cpp11_features/AliasesTests.cpp
+        cpp11_features/NullPtrTests.cpp
+        cpp11_features/EnumClassTests.cpp)
 
 target_link_libraries(exercisesTests catchlib exercises)
 add_test(NAME exercisesTests COMMAND exercisesTests)

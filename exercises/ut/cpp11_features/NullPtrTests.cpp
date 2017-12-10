@@ -5,7 +5,6 @@
 ***********************************************/
 
 #include <catch.hpp>
-#include <memory>
 
 /*
    C++11 introduces a new null pointer type designed to replace C's NULL macro. nullptr itself is of type
@@ -25,7 +24,7 @@ bool fnc(char*)
   return true;
 };
 
-bool expecting_unique_ptr_function(std::unique_ptr<int>)
+bool expecting_unique_ptr_function(const std::unique_ptr<int>&)
 {
   return true;
 }
