@@ -34,7 +34,7 @@ TEST_CASE("[CPP11] enum class", "[cpp11][enum_class]")
   SECTION("benefit")
   {
     auto color = Color::Black;
-    SECTION("is strongly typed")
+    SECTION("is strong typing")
     {
       REQUIRE(color != Color::White);
       // REQUIRE(0 != Color::Black); not compiling - Black is class

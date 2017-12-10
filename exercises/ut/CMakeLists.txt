@@ -11,7 +11,8 @@ add_executable(exercisesTests
         cpp11_features/AutoTests.cpp
         cpp11_features/AliasesTests.cpp
         cpp11_features/NullPtrTests.cpp
-        cpp11_features/EnumClassTests.cpp)
+        cpp11_features/EnumClassTests.cpp
+        cpp11_features/AttributesTests.cpp)
 
 target_link_libraries(exercisesTests catchlib exercises)
 add_test(NAME exercisesTests COMMAND exercisesTests)
