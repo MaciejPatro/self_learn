@@ -26,3 +26,4 @@ if(testing)
 endif()
 
 add_subdirectory(exercises)
+add_subdirectory(small_programs)
