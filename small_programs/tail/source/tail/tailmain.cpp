@@ -4,10 +4,9 @@
 *
 ***********************************************/
 
-#define CATCH_CONFIG_MAIN
-#include <catch.hpp>
+#include "tail.h"
 
-TEST_CASE("Tail: simple program printing last n lines of file")
+int main(int argc, char** argv)
 {
-
+  return 0;
 }

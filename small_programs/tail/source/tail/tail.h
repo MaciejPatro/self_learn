@@ -5,3 +5,13 @@
 ***********************************************/
 
 #pragma once
+
+#include <string>
+
+class FileReader
+{
+public:
+  FileReader(std::string fName) : fileName(fName) {}
+private:
+  std::string fileName;
+};
