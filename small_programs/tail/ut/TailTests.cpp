@@ -7,7 +7,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
 
-TEST_CASE("Tail: simple program printing last n lines of file")
+TEST_CASE("Tail: simple program printing last n lines of file", "[tail]")
 {
 
 }
