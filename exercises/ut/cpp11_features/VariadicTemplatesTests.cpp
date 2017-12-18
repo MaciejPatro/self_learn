@@ -5,7 +5,6 @@
 ***********************************************/
 
 #include <catch.hpp>
-#include <string>
 /*
     The ... syntax creates a parameter pack or expands one. A template parameter pack is a template parameter that
  accepts zero or more template arguments (non-types, types, or templates). A template with at least one parameter pack
