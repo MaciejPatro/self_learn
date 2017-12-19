@@ -6,4 +6,6 @@
 
 #pragma once
 
-bool isValidInput();
+namespace tail {
+bool isValidInput(int numOfArgs, const char** arguments);
+} // namespace tail
