@@ -10,7 +10,7 @@ pipeline {
         stage('Run UTs') {
             steps {
                 sh '../build/uts/exercises/ut/exercisesTests -r junit > ut_results.xml'
-		sh '../build/uts/small_programs/tail/ut/tailTests -r junit >> ut_results.xml'
+		sh '../build/uts/small_programs/tail/ut/tailTests -r junit > ut_results2.xml'
             }
         }
         stage('Build&Run Sanitizers') {
@@ -43,7 +43,7 @@ pipeline {
     }
     post {
         always {
-	        junit 'ut_results.xml'
+	        junit 'ut_results*.xml'
 	    }
     }
 }
