@@ -12,11 +12,23 @@
 */
 namespace {
 
+constexpr int square(int x)
+{
+  return x * x;
+}
+
 } // namespace
 
 TEST_CASE("[CPP11]Const expressions - how do they really work", "[cpp11][constexpr]")
 {
-  SECTION("Check number of elements at compile-time")
+  SECTION("Square calculated at compile-time")
   {
+    static_assert(square(2) == 4);
+  }
+
+  SECTION("Square function works completely fine at runtime")
+  {
+    int i = 4;
+    REQUIRE(square(i) == 16);
   }
 }
