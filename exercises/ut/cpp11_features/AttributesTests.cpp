@@ -12,7 +12,6 @@
 
 namespace {
 [[noreturn]] void fcn() { throw "error"; }
-
 int some_fcn(int i)
 {
   int val = i;
