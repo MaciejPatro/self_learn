@@ -13,7 +13,7 @@ add_executable(exercisesTests
         cpp11_features/NullPtrTests.cpp
         cpp11_features/EnumClassTests.cpp
         cpp11_features/AttributesTests.cpp
-        cpp11_features/ConstexprTests.cpp)
+        cpp11_features/ConstexprTests.cpp cpp11_features/DelegatingConstructorsTests.cpp)
 
 
 target_link_libraries(exercisesTests catchlib exercises)
