@@ -50,6 +50,36 @@ constexpr long double operator"" _yd(long double yd)
   return 3.0_ft * yd;
 }
 
+class Probability
+{
+  long double value;
+
+public:
+  explicit constexpr Probability(long double v) : value(v){};
+
+  constexpr Probability& operator+(const Probability& rhs)
+  {
+    this->value += rhs.value;
+    if(this->value > 1.0)
+      this->value = 1.0;
+    return *this;
+  }
+
+  constexpr bool operator==(const Probability& rhs) const
+  {
+    return this->value == rhs.value;
+  }
+};
+
+constexpr Probability operator"" _prob(long double v)
+{
+  if(v < 0)
+    return Probability(0.0);
+  if(v > 1.0)
+    return Probability(1.0);
+  return Probability(v);
+}
+
 } // namespace
 
 TEST_CASE("[CPP11] User-defined literals functionality", "[cpp11][literals]")
@@ -65,8 +95,15 @@ TEST_CASE("[CPP11] User-defined literals functionality", "[cpp11][literals]")
   SECTION("Metric vs Imperial system")
   {
     REQUIRE(1.0_ft == 0.3048_m);
-    auto meter = 1.0_m;
+    auto meter                  = 1.0_m;
     auto meter_defined_in_yards = 1.093618_yd;
     REQUIRE(meter == Approx(meter_defined_in_yards));
+  }
+
+  SECTION("Probability example used as constexpr with overloaded operators")
+  {
+    static_assert(0.4_prob + 0.2_prob == 0.6_prob);
+    static_assert(0.7_prob + 0.8_prob == 1.0_prob); // you can't have more than 100% chances;
+    //    static_assert(0.4_prob + 0.2 == 0.6_prob); - not gonna compile;
   }
 }
