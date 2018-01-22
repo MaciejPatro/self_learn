@@ -15,7 +15,8 @@ add_executable(exercisesTests
         cpp11_features/AttributesTests.cpp
         cpp11_features/ConstexprTests.cpp
         cpp11_features/DelegatingConstructorsTests.cpp
-        cpp11_features/UserDefinedLiteralsTests.cpp)
+        cpp11_features/UserDefinedLiteralsTests.cpp
+        cpp11_features/ClassTweaksTests.cpp)
 
 target_link_libraries(exercisesTests catchlib exercises)
 add_test(NAME exercisesTests COMMAND exercisesTests)
