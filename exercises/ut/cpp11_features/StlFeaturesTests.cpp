@@ -5,6 +5,8 @@
 ***********************************************/
 
 #include <catch.hpp>
+#include <string>
+
 /*
    User-defined literals allow you to extend the language and add your own syntax. To create a literal, define a
  T operator "" X(...) { ... } function that returns a type T, with a name X. Note that the name of this function
@@ -78,5 +80,12 @@ TEST_CASE("[CPP11] Standard library features introduced", "[cpp11][stl]")
       REQUIRE(Forwardable::Method::Copied == wrapper(a).m);
       REQUIRE(Forwardable::Method::Moved == wrapper(std::move(a)).m);
     }
+  }
+
+  SECTION("std::to_string - convert numeric arguments to strings")
+  {
+    REQUIRE(std::to_string(23) == "23");
+    REQUIRE(std::to_string(-423.45) == "-423.450000");
+    REQUIRE(std::to_string(1e-1) == "0.100000");
   }
 }
