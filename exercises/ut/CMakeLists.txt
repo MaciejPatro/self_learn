@@ -19,7 +19,8 @@ add_executable(exercisesTests
         cpp11_features/ClassTweaksTests.cpp
         cpp11_features/ExplicitConversionFuncTests.cpp
         cpp11_features/StlFeaturesTests.cpp
-        cpp11_features/ChronoTuplesTieTests.cpp)
+        cpp11_features/ChronoTuplesTieTests.cpp
+        cpp14_features/LambdaTests.cpp)
 
 target_link_libraries(exercisesTests catchlib exercises)
 add_test(NAME exercisesTests COMMAND exercisesTests)
