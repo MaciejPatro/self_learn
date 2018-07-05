@@ -126,7 +126,7 @@ order::price read_file(std::string filename)
 TEST_CASE("memory mapped file", "[recruitment]")
 {
   const std::string filename = "/home/mpatro/projects/clion/self_learn_repo/files/medium_size_file.txt";
-  REQUIRE(read_file(filename).get() == 0);
+  REQUIRE(std::isnan(read_file(filename).get()));
 }
 
 } // namespace trading_exercise
