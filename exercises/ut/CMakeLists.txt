@@ -20,7 +20,10 @@ add_executable(exercisesTests
         cpp11_features/ExplicitConversionFuncTests.cpp
         cpp11_features/StlFeaturesTests.cpp
         cpp11_features/ChronoTuplesTieTests.cpp
-        cpp14_features/LambdaTests.cpp)
+        cpp14_features/LambdaTests.cpp
+        cpp14_features/TypeDeductionTests.cpp
+        hpt.cpp
+        file_reader.cpp)
 
-target_link_libraries(exercisesTests catchlib exercises)
+target_link_libraries(exercisesTests catchlib exercises Boost::iostreams)
 add_test(NAME exercisesTests COMMAND exercisesTests)
