@@ -25,5 +25,5 @@ add_executable(exercisesTests
         hpt.cpp
         file_reader.cpp)
 
-target_link_libraries(exercisesTests catchlib exercises Boost::iostreams)
+target_link_libraries(exercisesTests catchlib exercises)
 add_test(NAME exercisesTests COMMAND exercisesTests)
